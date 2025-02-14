@@ -1,0 +1,9 @@
+name: "AsteroidRandomizer"
+main: "com.hastegames.asteroidrandomizer.AsteroidPlugin"
+version: "1.0.0"
+description: "Randomly places schematics within a region."
+authors:
+  - HasteGames
+  - BOWP
+website: "www.hastegames.com"
+api-version: "1.19"

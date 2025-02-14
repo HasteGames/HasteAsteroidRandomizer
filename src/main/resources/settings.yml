@@ -1,0 +1,12 @@
+settings:
+  world: "DeepSpace"
+  paste:
+    delay-seconds: 10
+    gap: 150
+  region:
+    min-x: -10000
+    max-x: 10000
+    min-y: 0
+    max-y: 220
+    min-z: -10000
+    max-z: -10000
