@@ -44,17 +44,27 @@ public class AsteroidDataConfig extends Config {
         int pasteGap = settings.settings__paste__gap;
 
         List<AsteroidRegion> regions = getAllRegions(minX, maxX, minZ, maxZ, pasteGap);
-        regions.removeAll(this.alreadyProcessed);
+        EasyLog.toConsole(getClass(), "All regions is a size of: " + regions.size());
+        if (!this.alreadyProcessed.isEmpty()) {
+            regions.removeAll(this.alreadyProcessed);
+            EasyLog.toConsole(getClass(), "Remaining regions is a size of: " + regions.size());
+        }
 
         return regions;
     }
 
     private List<AsteroidRegion> getAllRegions(int minX, int maxX, int minZ, int maxZ, int gap) {
+        EasyLog.toConsole(getClass(), "minX: " + minX + ", maxX: " + maxX);
+        EasyLog.toConsole(getClass(), "minZ: " + minZ + ", maxZ: " + maxZ);
+        EasyLog.toConsole(getClass(), "gap: " + gap);
+
         List<AsteroidRegion> regions = new LinkedList<>();
 
         // Calculate the number of sub-regions horizontally (X direction) and vertically (Z direction)
         int numRegionsX = (maxX - minX) / gap;
         int numRegionsZ = (maxZ - minZ) / gap;
+        EasyLog.toConsole(getClass(), "numRegionsX: " + numRegionsX);
+        EasyLog.toConsole(getClass(), "numRegionsZ: " + numRegionsZ);
 
         // Loop through the sub-regions and calculate the min and max coordinates for each
         for (int i = 0; i < numRegionsX; i++) {
@@ -68,6 +78,7 @@ public class AsteroidDataConfig extends Config {
                 // Do something with the sub-region min/max coordinates (subMinX, subMaxX, subMinZ, subMaxZ)
                 AsteroidRegion newRegion = new AsteroidRegion(subMinX, subMaxX, subMinZ, subMaxZ);
                 regions.add(newRegion);
+                EasyLog.toConsole(getClass(), "Creating region: [" + subMinX + ", " + subMaxX + "] x [" + subMinZ + ", " + subMaxZ + "]");
             }
         }
 

@@ -2,11 +2,9 @@ package com.hastegames.asteroidrandomizer;
 
 import com.hastegames.commons.config.AnnotatedConfig;
 import com.hastegames.commons.util.EasyLog;
-import com.hastegames.commons.util.ResourceExtractor;
 import lombok.Getter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

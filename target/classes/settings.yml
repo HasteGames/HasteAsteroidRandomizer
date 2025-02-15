@@ -9,4 +9,4 @@ settings:
     min-y: 0
     max-y: 220
     min-z: -10000
-    max-z: -10000
+    max-z: 10000

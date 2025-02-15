@@ -38,7 +38,7 @@ public class AsteroidTask extends BukkitRunnable {
     @Override
     public void run() {
         if (regions.isEmpty()) {
-            cancel();
+            EasyLog.toConsole(getClass(), "No regions to process");
             return;
         }
 
@@ -66,8 +66,8 @@ public class AsteroidTask extends BukkitRunnable {
     }
 
     private void logProgress(String file, int x, int y, int z) {
-        int percentageDone = (int) (((double) regions.size() / beginAmount) * 100);
-        int percentageRemaining = 100 - percentageDone;
+        int percentageRemaining = (int) (((double) regions.size() / beginAmount) * 100);
+        int percentageDone = 100 - percentageRemaining;
 
         long elapsedTimeMillis = System.currentTimeMillis() - startedAt;
         String duration = TimeUtil.timeAsString(elapsedTimeMillis);
@@ -78,7 +78,7 @@ public class AsteroidTask extends BukkitRunnable {
         EasyLog.toConsole(getClass(),
                 Arrays.asList(
                         "Pasted " + file + " at " + x + " " + y + " " + z,
-                        "Status: " + percentageRemaining + "% (" + percentageDone + " complete)",
+                        "Remaining: " + percentageRemaining + "% (" + percentageDone + "% done)",
                         "Current Time Elapsed: " + duration,
                         "Estimated Time Remaining: " + estimatedRemaining
                 )
