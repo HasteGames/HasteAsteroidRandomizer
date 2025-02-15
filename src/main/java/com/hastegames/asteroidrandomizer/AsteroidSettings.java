@@ -3,6 +3,7 @@ package com.hastegames.asteroidrandomizer;
 import com.hastegames.commons.config.AnnotatedConfig;
 import com.hastegames.commons.util.EasyLog;
 import com.hastegames.commons.util.ResourceExtractor;
+import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class AsteroidSettings extends AnnotatedConfig {
     public int settings__region__min_z;
     public int settings__region__max_z;
 
+    @Getter
     private List<File> schematics = new ArrayList<>();
 
     public AsteroidSettings(String file, List<String> ignoredSections) {
