@@ -22,9 +22,11 @@ public class AsteroidDataConfig extends Config {
         savedProgress.forEach(line -> {
             try {
                 String[] split = line.split(",");
-                int x = Integer.parseInt(split[0]);
-                int z = Integer.parseInt(split[1]);
-                AsteroidRegion processedRegion = new AsteroidRegion(x, z);
+                int minX = Integer.parseInt(split[0]);
+                int maxX = Integer.parseInt(split[1]);
+                int minZ = Integer.parseInt(split[2]);
+                int maxZ = Integer.parseInt(split[3]);
+                AsteroidRegion processedRegion = new AsteroidRegion(minX, maxX, minZ, maxZ);
                 this.alreadyProcessed.add(processedRegion);
             } catch (Exception e) {
                 EasyLog.toConsole(getClass(), "Illegal line format in progress.yml of line: " + line);
@@ -38,14 +40,15 @@ public class AsteroidDataConfig extends Config {
         int maxX = settings.settings__region__max_x;
         int minZ = settings.settings__region__min_z;
         int maxZ = settings.settings__region__max_z;
+        int pasteGap = settings.settings__paste__gap;
 
-        List<AsteroidRegion> regions = getAllRegions(minX, maxX, minZ, maxZ);
+        List<AsteroidRegion> regions = getAllRegions(minX, maxX, minZ, maxZ, pasteGap);
         regions.removeAll(this.alreadyProcessed);
 
         return regions;
     }
 
-    private List<AsteroidRegion> getAllRegions(int minX, int maxX, int minZ, int maxZ) {
+    private List<AsteroidRegion> getAllRegions(int minX, int maxX, int minZ, int maxZ, int gap) {
         List<AsteroidRegion> regions = new LinkedList<>();
 
         int minimumX = Math.min(minX, maxX);
@@ -53,9 +56,12 @@ public class AsteroidDataConfig extends Config {
         int minimumZ = Math.min(minZ, maxZ);
         int maximumZ = Math.max(minZ, maxZ);
 
-        for (int z = minimumZ; z <= maximumZ; z += 100) { // Process row-by-row (top to bottom)
-            for (int x = minimumX; x <= maximumX; x += 100) { // Process left to right
-                regions.add(new AsteroidRegion(x, z));
+        for (int z = minimumZ; z <= maximumZ; z += gap) { // Process row-by-row (top to bottom)
+            for (int x = minimumX; x <= maximumX; x += gap) { // Process left to right
+                int regionMaxX = Math.min(x + gap - 1, maximumX); // Ensure it doesn't exceed bounds
+                int regionMaxZ = Math.min(z + gap - 1, maximumZ);
+
+                regions.add(new AsteroidRegion(x, regionMaxX, z, regionMaxZ));
             }
         }
 

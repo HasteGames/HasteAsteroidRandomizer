@@ -7,11 +7,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AsteroidRegion {
 
-    private final int x;
-    private final int z;
+    private final int minX;
+    private final int maxX;
+    private final int minZ;
+    private final int maxZ;
 
     public String asFormat() {
-        return x + "," + z;
+        return minX + "," + maxX + "," + minZ + "," + maxZ;
     }
 
 }

@@ -9,5 +9,8 @@
         <module name="AsteroidPlugin" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AsteroidPlugin" target="22" />
+    </bytecodeTargetLevel>
   </component>
 </project>
