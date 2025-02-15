@@ -10,4 +10,8 @@ public class AsteroidRegion {
     private final int x;
     private final int z;
 
+    public String asFormat() {
+        return x + "," + z;
+    }
+
 }

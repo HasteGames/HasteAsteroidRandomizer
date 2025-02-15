@@ -27,6 +27,9 @@ public class AsteroidPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (this.dataConfig != null) {
+            this.dataConfig.saveProgress();
+        }
     }
 
 }
