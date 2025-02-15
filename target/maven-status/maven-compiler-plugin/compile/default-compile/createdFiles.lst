@@ -1,0 +1,5 @@
+com\hastegames\asteroidrandomizer\AsteroidPlugin.class
+com\hastegames\asteroidrandomizer\AsteroidSettings.class
+com\hastegames\asteroidrandomizer\model\AsteroidRegion.class
+com\hastegames\asteroidrandomizer\AsteroidDataConfig.class
+com\hastegames\asteroidrandomizer\AsteroidTask.class

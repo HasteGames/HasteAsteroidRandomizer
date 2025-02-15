@@ -3,6 +3,7 @@ package com.hastegames.asteroidrandomizer;
 import com.hastegames.asteroidrandomizer.model.AsteroidRegion;
 import com.hastegames.commons.config.Config;
 import com.hastegames.commons.util.EasyLog;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -51,17 +52,22 @@ public class AsteroidDataConfig extends Config {
     private List<AsteroidRegion> getAllRegions(int minX, int maxX, int minZ, int maxZ, int gap) {
         List<AsteroidRegion> regions = new LinkedList<>();
 
-        int minimumX = Math.min(minX, maxX);
-        int maximumX = Math.max(minX, maxX);
-        int minimumZ = Math.min(minZ, maxZ);
-        int maximumZ = Math.max(minZ, maxZ);
+        // Calculate the number of sub-regions horizontally (X direction) and vertically (Z direction)
+        int numRegionsX = (maxX - minX) / gap;
+        int numRegionsZ = (maxZ - minZ) / gap;
 
-        for (int z = minimumZ; z <= maximumZ; z += gap) { // Process row-by-row (top to bottom)
-            for (int x = minimumX; x <= maximumX; x += gap) { // Process left to right
-                int regionMaxX = Math.min(x + gap - 1, maximumX); // Ensure it doesn't exceed bounds
-                int regionMaxZ = Math.min(z + gap - 1, maximumZ);
+        // Loop through the sub-regions and calculate the min and max coordinates for each
+        for (int i = 0; i < numRegionsX; i++) {
+            for (int j = 0; j < numRegionsZ; j++) {
+                // Calculate the min and max X and Z for the current sub-region
+                int subMinX = minX + i * gap;
+                int subMaxX = Math.min(minX + (i + 1) * gap, maxX);
+                int subMinZ = minZ + j * gap;
+                int subMaxZ = Math.min(minZ + (j + 1) * gap, maxZ);
 
-                regions.add(new AsteroidRegion(x, regionMaxX, z, regionMaxZ));
+                // Do something with the sub-region min/max coordinates (subMinX, subMaxX, subMinZ, subMaxZ)
+                AsteroidRegion newRegion = new AsteroidRegion(subMinX, subMaxX, subMinZ, subMaxZ);
+                regions.add(newRegion);
             }
         }
 
