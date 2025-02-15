@@ -11,6 +11,7 @@ public class AsteroidPlugin extends JavaPlugin {
     @Getter public static AsteroidPlugin instance;
     public LibraryPlugin commons;
     public AsteroidSettings settings;
+    public AsteroidDataConfig dataConfig;
 
     @Override
     public void onEnable() {
@@ -21,6 +22,7 @@ public class AsteroidPlugin extends JavaPlugin {
                         "AsteroidRandomizer", "asteroidrandomizer.admin"));
 
         this.settings = new AsteroidSettings("settings", null);
+        this.dataConfig = new AsteroidDataConfig("progress", this, true);
     }
 
     @Override
