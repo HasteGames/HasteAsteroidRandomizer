@@ -1,3 +1,4 @@
+com\hastegames\asteroidrandomizer\command\AsteroidCommand.class
 com\hastegames\asteroidrandomizer\AsteroidPlugin.class
 com\hastegames\asteroidrandomizer\AsteroidSettings.class
 com\hastegames\asteroidrandomizer\model\AsteroidRegion.class

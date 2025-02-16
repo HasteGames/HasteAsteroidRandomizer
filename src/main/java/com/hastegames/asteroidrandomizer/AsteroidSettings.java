@@ -1,5 +1,6 @@
 package com.hastegames.asteroidrandomizer;
 
+import com.google.common.base.Joiner;
 import com.hastegames.commons.config.AnnotatedConfig;
 import com.hastegames.commons.util.EasyLog;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class AsteroidSettings extends AnnotatedConfig {
 
@@ -25,7 +27,7 @@ public class AsteroidSettings extends AnnotatedConfig {
     public int settings__region__max_z;
 
     @Getter
-    private List<File> schematics = new ArrayList<>();
+    private final List<File> schematics = new ArrayList<>();
 
     public AsteroidSettings(String file, List<String> ignoredSections) {
         super(file, ignoredSections);
@@ -49,7 +51,9 @@ public class AsteroidSettings extends AnnotatedConfig {
 
         List<File> files = Arrays.asList(Objects.requireNonNull(dir.listFiles()));
         schematics.addAll(files);
-        EasyLog.toConsole(getClass(), "Loaded " + this.schematics.size() + " schematic files.");
+
+        String fileNames = Joiner.on(", ").join(files.stream().map(File::getName).collect(Collectors.toSet()));
+        EasyLog.toConsole(getClass(), "Loaded " + this.schematics.size() + " schematic files. (" + fileNames + ")");
     }
 
 }

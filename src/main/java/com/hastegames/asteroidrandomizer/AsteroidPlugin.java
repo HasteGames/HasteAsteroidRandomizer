@@ -12,7 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Getter
 public class AsteroidPlugin extends JavaPlugin {
 
-    @Getter public static AsteroidPlugin instance;
+    @Getter
+    public static AsteroidPlugin instance;
     public LibraryPlugin commons;
     public AsteroidSettings settings;
     public AsteroidDataConfig dataConfig;

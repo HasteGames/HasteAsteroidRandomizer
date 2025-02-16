@@ -3,17 +3,18 @@ package com.hastegames.asteroidrandomizer;
 import com.hastegames.asteroidrandomizer.model.AsteroidRegion;
 import com.hastegames.commons.config.Config;
 import com.hastegames.commons.util.EasyLog;
-import org.checkerframework.checker.units.qual.A;
+import lombok.Getter;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+@Getter
 public class AsteroidDataConfig extends Config {
 
     private final AsteroidPlugin plugin;
-    private final Set<AsteroidRegion> alreadyProcessed = new HashSet<>();
+    public final Set<AsteroidRegion> alreadyProcessed = new HashSet<>();
 
     public AsteroidDataConfig(String path, AsteroidPlugin plugin, boolean create) {
         super(path, plugin, create);
@@ -29,6 +30,7 @@ public class AsteroidDataConfig extends Config {
                 int maxZ = Integer.parseInt(split[3]);
                 AsteroidRegion processedRegion = new AsteroidRegion(minX, maxX, minZ, maxZ);
                 this.alreadyProcessed.add(processedRegion);
+                EasyLog.toConsole(getClass(), "Added already processed region: " + minX + " " + maxX + " " + minZ + " " + maxZ);
             } catch (Exception e) {
                 EasyLog.toConsole(getClass(), "Illegal line format in progress.yml of line: " + line);
             }
@@ -46,7 +48,8 @@ public class AsteroidDataConfig extends Config {
         List<AsteroidRegion> regions = getAllRegions(minX, maxX, minZ, maxZ, pasteGap);
         EasyLog.toConsole(getClass(), "All regions is a size of: " + regions.size());
         if (!this.alreadyProcessed.isEmpty()) {
-            regions.removeAll(this.alreadyProcessed);
+            this.alreadyProcessed.forEach(alreadyProcessed ->
+                    regions.removeIf(region -> region.asFormat().equalsIgnoreCase(alreadyProcessed.asFormat())));
             EasyLog.toConsole(getClass(), "Remaining regions is a size of: " + regions.size());
         }
 
@@ -78,10 +81,10 @@ public class AsteroidDataConfig extends Config {
                 // Do something with the sub-region min/max coordinates (subMinX, subMaxX, subMinZ, subMaxZ)
                 AsteroidRegion newRegion = new AsteroidRegion(subMinX, subMaxX, subMinZ, subMaxZ);
                 regions.add(newRegion);
-                EasyLog.toConsole(getClass(), "Creating region: [" + subMinX + ", " + subMaxX + "] x [" + subMinZ + ", " + subMaxZ + "]");
             }
         }
 
+        EasyLog.toConsole(getClass(), "Creating a total of: " + regions.size() + " regions to process.");
         return regions;
     }
 

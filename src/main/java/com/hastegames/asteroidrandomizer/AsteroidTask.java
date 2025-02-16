@@ -2,7 +2,6 @@ package com.hastegames.asteroidrandomizer;
 
 import com.hastegames.asteroidrandomizer.model.AsteroidRegion;
 import com.hastegames.commons.util.EasyLog;
-import com.hastegames.commons.util.FormatUtil;
 import com.hastegames.commons.util.Randomize;
 import com.hastegames.commons.util.datetime.TimeUtil;
 import com.hastegames.commons.util.string.CC;
@@ -20,12 +19,11 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class AsteroidTask extends BukkitRunnable {
 
-    private final AsteroidPlugin plugin;
     public final List<AsteroidRegion> regions;
-    private final World world;
-
     public final long startedAt;
     public final int beginAmount;
+    private final AsteroidPlugin plugin;
+    private final World world;
     public long nextAttempt = 0;
 
     public AsteroidTask(AsteroidPlugin plugin, List<AsteroidRegion> regions, World world) {
@@ -65,6 +63,8 @@ public class AsteroidTask extends BukkitRunnable {
             // do the actual paste!
 
             this.regions.remove(region);
+            plugin.getDataConfig().getAlreadyProcessed().add(region);
+
             nextAttempt = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(plugin.getSettings().settings__paste__delay_seconds);
             logProgress(file.getName(), randomX, randomY, randomZ);
         } else {
