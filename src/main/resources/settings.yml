@@ -1,7 +1,13 @@
 settings:
   world: "DeepSpace"
   paste:
+    # How many seconds delay between pasting a random
+    # schematic? [Default: 10]
     delay-seconds: 10
+    # The gap x gap area in which the main region will
+    # be split and a schematic be pasted in.
+    # A smaller gap value will result in denser pasting.
+    # [Default: 150]
     gap: 150
   region:
     min-x: -10000
