@@ -34,12 +34,22 @@ public class AsteroidCommand extends BaseCommand {
         long elapsedTimeMillis = System.currentTimeMillis() - task.startedAt;
         String duration = TimeUtil.timeAsString(elapsedTimeMillis);
 
-        long timeRemaining = TimeUnit.SECONDS.toMillis((long) task.regions.size() * plugin.settings.settings__paste__delay_seconds);
+        int pastingSpeed = plugin.settings.settings__paste__delay_seconds;
+        long timeRemaining = TimeUnit.SECONDS.toMillis((long) task.regions.size() * pastingSpeed);
         String estimatedRemaining = TimeUtil.timeAsString(timeRemaining);
 
-        sender.sendMessage(CC.PRIMARY + "Progress: " + CC.SECONDARY + percentageDone + "%/" + percentageRemaining + "%");
-        sender.sendMessage(CC.PRIMARY + "Current Elapsed Time: " + CC.SECONDARY + duration);
-        sender.sendMessage(CC.PRIMARY + "Estimated Time Remaining: " + CC.SECONDARY + estimatedRemaining);
+        sender.sendMessage("");
+        sender.sendMessage(CC.B_PRIMARY + "AsteroidRandomizer:");
+        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Status: " + (plugin.getSettings().enabled ? CC.GREEN + "Active" : CC.RED + "Not Active"));
+        sender.sendMessage("");
+        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Progress: " + CC.SECONDARY + percentageDone + "% done, " + percentageRemaining + "% remaining");
+        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Current Elapsed Time: " + CC.SECONDARY + duration);
+        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Estimated Time Remaining: " + CC.SECONDARY + estimatedRemaining);
+        sender.sendMessage("");
+        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Pasting Speed: " + CC.SECONDARY + "1 schematic/" + pastingSpeed + " seconds");
+        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Pasting Gap: " + CC.SECONDARY + plugin.getSettings().settings__paste__gap + "x"+ plugin.getSettings().settings__paste__gap);
+        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Pasting World: " + CC.SECONDARY + plugin.getSettings().settings__world);
+        sender.sendMessage("");
     }
 
 }
