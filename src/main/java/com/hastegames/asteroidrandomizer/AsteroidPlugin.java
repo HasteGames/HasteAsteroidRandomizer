@@ -1,5 +1,6 @@
 package com.hastegames.asteroidrandomizer;
 
+import com.hastegames.asteroidrandomizer.command.AsteroidCommand;
 import com.hastegames.commons.LibraryPlugin;
 import com.hastegames.commons.util.EasyLog;
 import com.hastegames.commons.util.string.CC;
@@ -37,6 +38,8 @@ public class AsteroidPlugin extends JavaPlugin {
 
         this.task = new AsteroidTask(this, this.dataConfig.getRemainingRegions(), world);
         this.task.runTaskTimer(this, 0L, 20L);
+
+        this.commons.getPaperCommandManager().registerCommand(new AsteroidCommand(this));
     }
 
     @Override

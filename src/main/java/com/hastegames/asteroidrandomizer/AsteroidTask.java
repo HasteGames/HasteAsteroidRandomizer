@@ -6,6 +6,7 @@ import com.hastegames.commons.util.FormatUtil;
 import com.hastegames.commons.util.Randomize;
 import com.hastegames.commons.util.datetime.TimeUtil;
 import com.hastegames.commons.util.string.CC;
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -16,15 +17,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Getter
 public class AsteroidTask extends BukkitRunnable {
 
     private final AsteroidPlugin plugin;
-    private final List<AsteroidRegion> regions;
+    public final List<AsteroidRegion> regions;
     private final World world;
 
-    private final long startedAt;
-    private final int beginAmount;
-    private long nextAttempt = 0;
+    public final long startedAt;
+    public final int beginAmount;
+    public long nextAttempt = 0;
 
     public AsteroidTask(AsteroidPlugin plugin, List<AsteroidRegion> regions, World world) {
         this.plugin = plugin;
@@ -37,6 +39,11 @@ public class AsteroidTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (!plugin.getSettings().enabled) {
+            EasyLog.toConsole(getClass(), "The placer is disabled, enable to start pasting!");
+            return;
+        }
+
         if (regions.isEmpty()) {
             EasyLog.toConsole(getClass(), "No regions to process");
             return;

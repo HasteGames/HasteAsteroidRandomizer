@@ -12,6 +12,8 @@ import java.util.Objects;
 
 public class AsteroidSettings extends AnnotatedConfig {
 
+    public boolean enabled;
+
     public String settings__world;
     public int settings__paste__delay_seconds;
     public int settings__paste__gap;
@@ -29,6 +31,11 @@ public class AsteroidSettings extends AnnotatedConfig {
         super(file, ignoredSections);
         reload();
         loadSchematics();
+    }
+
+    public boolean toggleRunning() {
+        setAndSave(getField("enabled"), !enabled);
+        return enabled;
     }
 
     public void loadSchematics() {
