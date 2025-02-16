@@ -1,3 +1,5 @@
+enabled: true
+
 settings:
   world: "DeepSpace"
   paste:
