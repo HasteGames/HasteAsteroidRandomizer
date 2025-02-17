@@ -43,7 +43,7 @@ public class AsteroidPlugin extends JavaPlugin {
         this.fawe = new AsteroidFawe();
 
         this.task = new AsteroidTask(this, this.dataConfig.getRemainingRegions(), world);
-        this.task.runTaskTimer(this, 0L, 20L);
+        this.task.runTaskTimerAsynchronously(this, 0L, 20L);
 
         this.commons.getPaperCommandManager().registerCommand(new AsteroidCommand(this));
     }

@@ -41,7 +41,7 @@ public class AsteroidFawe {
 
                     World weWorld = FaweAPI.getWorld(worldName);
                     BlockVector3 vector3 = BlockVector3Imp.at(location.getBlockX(), location.getBlockY(), location.getBlockZ());
-                    clipboard.paste(weWorld, vector3, false, true, null);
+                    clipboard.paste(weWorld, vector3, false, false, null);
                 }
             } catch (Throwable t) {
                 EasyLog.toConsole(getClass(), "An error occurred while pasting schematic " + schematicFile.getName(), t);

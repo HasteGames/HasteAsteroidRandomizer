@@ -48,6 +48,7 @@ public class AsteroidTask extends BukkitRunnable {
         }
 
         if (nextAttempt > System.currentTimeMillis()) {
+            EasyLog.toConsole(getClass(), "Pasting is on cooldown.");
             return;
         }
 
@@ -60,12 +61,11 @@ public class AsteroidTask extends BukkitRunnable {
 
         if (block.getType().isAir()) {
             File file = Randomize.getRandom(this.plugin.settings.getSchematics());
+            nextAttempt = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(plugin.getSettings().settings__paste__delay_seconds);
 
             plugin.getFawe().pasteSchematic(location, file).thenAccept(pasted -> {
                 this.regions.remove(region);
                 plugin.getDataConfig().getAlreadyProcessed().add(region);
-
-                nextAttempt = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(plugin.getSettings().settings__paste__delay_seconds);
                 logProgress(file.getName(), randomX, randomY, randomZ);
             });
         } else {
