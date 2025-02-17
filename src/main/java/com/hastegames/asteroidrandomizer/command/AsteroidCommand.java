@@ -51,5 +51,4 @@ public class AsteroidCommand extends BaseCommand {
         sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Pasting World: " + CC.SECONDARY + plugin.getSettings().settings__world);
         sender.sendMessage("");
     }
-
 }

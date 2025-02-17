@@ -60,13 +60,14 @@ public class AsteroidTask extends BukkitRunnable {
 
         if (block.getType().isAir()) {
             File file = Randomize.getRandom(this.plugin.settings.getSchematics());
-            // do the actual paste!
 
-            this.regions.remove(region);
-            plugin.getDataConfig().getAlreadyProcessed().add(region);
+            plugin.getFawe().pasteSchematic(location, file).thenAccept(pasted -> {
+                this.regions.remove(region);
+                plugin.getDataConfig().getAlreadyProcessed().add(region);
 
-            nextAttempt = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(plugin.getSettings().settings__paste__delay_seconds);
-            logProgress(file.getName(), randomX, randomY, randomZ);
+                nextAttempt = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(plugin.getSettings().settings__paste__delay_seconds);
+                logProgress(file.getName(), randomX, randomY, randomZ);
+            });
         } else {
             EasyLog.toConsole(getClass(), CC.RED + "[Failed] Cannot paste at " + randomX + ", " + randomY + ", " + randomZ + " as it was not air.");
         }

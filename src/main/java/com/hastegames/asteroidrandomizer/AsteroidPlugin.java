@@ -1,6 +1,7 @@
 package com.hastegames.asteroidrandomizer;
 
 import com.hastegames.asteroidrandomizer.command.AsteroidCommand;
+import com.hastegames.asteroidrandomizer.fawe.AsteroidFawe;
 import com.hastegames.commons.LibraryPlugin;
 import com.hastegames.commons.util.EasyLog;
 import com.hastegames.commons.util.string.CC;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.units.qual.A;
 
 @Getter
 public class AsteroidPlugin extends JavaPlugin {
@@ -16,6 +18,7 @@ public class AsteroidPlugin extends JavaPlugin {
     public static AsteroidPlugin instance;
     public LibraryPlugin commons;
     public AsteroidSettings settings;
+    public AsteroidFawe fawe;
     public AsteroidDataConfig dataConfig;
     public AsteroidTask task;
 
@@ -36,6 +39,8 @@ public class AsteroidPlugin extends JavaPlugin {
                     new NullPointerException("Bukkit world cannot be null."));
             return;
         }
+
+        this.fawe = new AsteroidFawe();
 
         this.task = new AsteroidTask(this, this.dataConfig.getRemainingRegions(), world);
         this.task.runTaskTimer(this, 0L, 20L);

@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 public class AsteroidDataConfig extends Config {
@@ -91,7 +92,7 @@ public class AsteroidDataConfig extends Config {
     public void saveProgress() {
         long start = System.currentTimeMillis();
 
-        List<String> alreadyProcessed = this.alreadyProcessed.stream().map(AsteroidRegion::asFormat).toList();
+        List<String> alreadyProcessed = this.alreadyProcessed.stream().map(AsteroidRegion::asFormat).collect(Collectors.toList());
         this.set("progress", alreadyProcessed);
 
         long end = System.currentTimeMillis();
