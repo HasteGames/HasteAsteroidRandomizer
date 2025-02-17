@@ -3,9 +3,13 @@ package com.hastegames.asteroidrandomizer;
 import com.hastegames.asteroidrandomizer.model.AsteroidRegion;
 import com.hastegames.commons.util.EasyLog;
 import com.hastegames.commons.util.Randomize;
+import com.hastegames.commons.util.bukkit.Clickable;
+import com.hastegames.commons.util.bukkit.Placeholder;
+import com.hastegames.commons.util.bukkit.PlayerUtil;
 import com.hastegames.commons.util.datetime.TimeUtil;
 import com.hastegames.commons.util.string.CC;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -48,7 +52,7 @@ public class AsteroidTask extends BukkitRunnable {
         }
 
         if (nextAttempt > System.currentTimeMillis()) {
-            EasyLog.toConsole(getClass(), "Pasting is on cooldown.");
+            EasyLog.toConsole(EasyLog.Level.EVERYTHING, getClass(), "Pasting is on cooldown.");
             return;
         }
 
@@ -86,11 +90,25 @@ public class AsteroidTask extends BukkitRunnable {
         EasyLog.toConsole(getClass(),
                 Arrays.asList(
                         "Pasted " + file + " at " + x + " " + y + " " + z,
-                        "Remaining: " + percentageRemaining + "% (" + percentageDone + "% done)",
+                        "Remaining: " + percentageRemaining + "% (" + percentageDone + "% done) [" + this.regions.size() + " regions]",
                         "Current Time Elapsed: " + duration,
                         "Estimated Time Remaining: " + estimatedRemaining
                 )
         );
+        Placeholder placeholder = new Placeholder()
+                .set("x", x)
+                .set("y", y)
+                .set("z", z);
+
+        Clickable clickable = new Clickable(CC.GREEN + "Pasted " + file + " at " + x + " " + y + " " + z + CC.B_GREEN + " [TELEPORT]",
+                CC.YELLOW + placeholder.parse("Click to teleport to %x%, %y%, %z%"),
+                placeholder.parse(plugin.getSettings().settings__teleport_command));
+
+        Bukkit.getOperators().forEach(op -> {
+            if (op.isOnline()) {
+                clickable.sendToPlayer(op.getPlayer());
+            }
+        });
     }
 
 }

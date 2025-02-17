@@ -42,7 +42,7 @@ public class AsteroidCommand extends BaseCommand {
         sender.sendMessage(CC.B_PRIMARY + "AsteroidRandomizer:");
         sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Status: " + (plugin.getSettings().enabled ? CC.GREEN + "Active" : CC.RED + "Not Active"));
         sender.sendMessage("");
-        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Progress: " + CC.SECONDARY + percentageDone + "% done, " + percentageRemaining + "% remaining");
+        sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Progress: " + CC.SECONDARY + percentageDone + "% done, " + percentageRemaining + "% remaining (" + plugin.getTask().getRegions().size() + " regions)");
         sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Current Elapsed Time: " + CC.SECONDARY + duration);
         sender.sendMessage("  " + CC.TERTIARY + CC.DIAMOND + " " + CC.PRIMARY + "Estimated Time Remaining: " + CC.SECONDARY + estimatedRemaining);
         sender.sendMessage("");
