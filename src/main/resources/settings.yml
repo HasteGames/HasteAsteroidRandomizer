@@ -2,6 +2,7 @@ enabled: true
 
 settings:
   world: "DeepSpace"
+  teleport-command: "/teleport %x% %y% %z%"
   paste:
     # How many seconds delay between pasting a random
     # schematic? [Default: 10]

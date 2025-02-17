@@ -17,6 +17,7 @@ public class AsteroidSettings extends AnnotatedConfig {
     public boolean enabled;
 
     public String settings__world;
+    public String settings__teleport_command;
     public int settings__paste__delay_seconds;
     public int settings__paste__gap;
     public int settings__region__min_x;
