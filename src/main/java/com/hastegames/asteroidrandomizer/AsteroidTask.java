@@ -42,7 +42,7 @@ public class AsteroidTask extends BukkitRunnable {
     @Override
     public void run() {
         if (!plugin.getSettings().enabled) {
-            EasyLog.toConsole(getClass(), "The placer is disabled, enable to start pasting!");
+            EasyLog.toConsole(EasyLog.Level.EVERYTHING, getClass(), "The placer is disabled, enable to start pasting!");
             return;
         }
 
