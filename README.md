@@ -42,7 +42,7 @@ settings:
 - `/asteroidrandomizer status` - See the status of the paste task.
 
 ## Contributing
-Pull requests and suggestions are welcome! Feel free to submit issues for bugs or feature requests.
+Pull requests and suggestions are welcome! Currently, the plugin comes as-is, with no plans for major updates.
 
 ## License
 This project is licensed under the MIT License.
